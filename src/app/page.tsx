@@ -86,7 +86,7 @@ export default function Dashboard() {
               <Leaderboard athletes={filteredAthletes} onSelectAthlete={goToAthlete} />
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
                 <DistributionChart athletes={filteredAthletes} teamMean={teamStats.mean} />
-                <GroupComparison   positionStats={positionStats} teamStats={teamStats} />
+                <GroupComparison   athletes={filteredAthletes} teamStats={teamStats} />
               </div>
             </>
           )}
