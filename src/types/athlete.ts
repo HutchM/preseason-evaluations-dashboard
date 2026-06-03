@@ -1,63 +1,68 @@
 // ─── Core Data Types ─────────────────────────────────────────────────────────
 
-export type Position = "Forward" | "Midfielder" | "Defender" | "Goalkeeper" | string;
+export type Position = "Basketball" | "Volleyball" | "Hockey" | string;
+export type Sex = "men" | "women" | string;
 
 export interface AthleteRaw {
-  athlete_name: string;
-  position: Position;
-  session_date: string;  // ISO date string YYYY-MM-DD
-  // The 10 kinematic metrics
-  jump_height_cm: number;       // CMJ height — higher is better
-  peak_power_w_kg: number;      // Relative peak power — higher is better
-  peak_velocity_ms: number;     // Max sprint velocity — higher is better
-  acceleration_ms2: number;     // 0-10 m acceleration — higher is better
-  deceleration_ms2: number;     // Braking deceleration (abs value) — higher is better
-  asymmetry_index: number;      // Left-right asymmetry % — lower is better
-  rsi: number;                  // Reactive Strength Index — higher is better
-  peak_force_n_kg: number;      // Relative peak GRF — higher is better
-  contact_time_ms: number;      // Ground contact time — lower is better
-  hip_rom_deg: number;          // Hip flexion ROM degrees — higher is better
-  [key: string]: string | number; // Allow extra numeric columns from uploads
+  athlete_name:  string;   // athlete_id from long format
+  position:      Position; // demo_sport
+  session_date:  string;   // year_of_study (used as cohort label)
+  sex:           Sex;
+  age?:          number;
+
+  // ── CMJ metrics (mean across valid bilat trials) ───────────────────────
+  cmj_jump_height_m:            number;  // CMJ Jump Height (m) — higher better
+  cmj_takeoff_velocity_ms:      number;  // Take-off Velocity (m/s) — higher better
+  cmj_cm_depth_m:               number;  // CM Depth (m) — higher better
+  cmj_flight_time_s:            number;  // Flight Time (s) — higher better
+  cmj_propulsive_duration_s:    number;  // Propulsive Duration (s) — lower better
+  cmj_peak_descent_velocity_ms: number;  // Peak Descent Velocity |m/s| — higher better
+
+  // ── DDJ metrics (mean of L+R, averaged across valid trials) ───────────
+  ddj_rsi_final:         number;  // RSI (m/s) — higher better
+  ddj_jump_height_m:     number;  // DDJ Jump Height (m) — higher better
+  ddj_gct_s:             number;  // Ground Contact Time (s) — lower better
+  ddj_peak_vgrf_bw:      number;  // Peak vGRF (BW) — higher better
+  ddj_loading_rate_bw_s: number;  // Loading Rate (BW/s) — higher better
+  ddj_rsi_asymmetry:     number;  // RSI Asymmetry % |L−R| — lower better
+
+  [key: string]: string | number | undefined;
 }
 
 // ─── Processed Athlete with derived stats ────────────────────────────────────
 
 export interface AthleteProcessed extends AthleteRaw {
-  id: string; // derived from name + date
-  percentiles: Record<string, number>;      // 0–100 per metric
-  zScores: Record<string, number>;          // z-scores per metric
-  strengths: string[];                      // metric keys in top tercile
-  weaknesses: string[];                     // metric keys in bottom tercile
-  overallScore: number;                     // composite 0–100
-  flags: string[];                          // auto-generated flag messages
+  id: string;
+  percentiles:   Record<string, number>;
+  zScores:       Record<string, number>;
+  strengths:     string[];
+  weaknesses:    string[];
+  overallScore:  number;
+  flags:         string[];
 }
 
 // ─── Metric Metadata ──────────────────────────────────────────────────────────
 
 export interface MetricMeta {
-  key: string;
-  label: string;
-  unit: string;
-  higherIsBetter: boolean;
-  description: string;
-  category: "Power" | "Speed" | "Strength" | "Asymmetry" | "Mobility";
-  color: string; // tailwind color token for charts
+  key:             string;
+  label:           string;
+  unit:            string;
+  higherIsBetter:  boolean;
+  description:     string;
+  category:        "CMJ" | "DDJ" | "Asymmetry";
+  color:           string;
 }
 
-// ─── Group/Team summary ───────────────────────────────────────────────────────
+// ─── Group stats ─────────────────────────────────────────────────────────────
 
 export interface GroupStats {
-  mean: Record<string, number>;
+  mean:   Record<string, number>;
   median: Record<string, number>;
-  std: Record<string, number>;
-  min: Record<string, number>;
-  max: Record<string, number>;
-  p25: Record<string, number>;
-  p75: Record<string, number>;
-}
-
-export interface PositionGroupStats {
-  [position: string]: GroupStats;
+  std:    Record<string, number>;
+  min:    Record<string, number>;
+  max:    Record<string, number>;
+  p25:    Record<string, number>;
+  p75:    Record<string, number>;
 }
 
 // ─── Dashboard state ──────────────────────────────────────────────────────────
@@ -65,8 +70,9 @@ export interface PositionGroupStats {
 export type NavSection = "overview" | "athlete" | "group" | "metrics" | "summary";
 
 export interface Filters {
-  selectedAthlete: string | null;
-  selectedPosition: string | null;
-  selectedSession: string | null;
-  selectedMetric: string | null;
+  selectedAthlete:  string | null;
+  selectedPosition: string | null;   // sport
+  selectedSession:  string | null;   // year of study / cohort
+  selectedSex:      string | null;
+  selectedMetric:   string | null;
 }

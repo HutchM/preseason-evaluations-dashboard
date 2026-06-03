@@ -35,8 +35,8 @@ export function OverviewCards({ athletes, teamStats, flaggedCount, topPerformer 
       color: "text-emerald-400",
       bg:    "bg-emerald-500/15",
       label: "Avg CMJ Height",
-      value: fmt(teamStats.mean["jump_height_cm"], "cm"),
-      sub:   `Range: ${fmt(teamStats.min["jump_height_cm"])}–${fmt(teamStats.max["jump_height_cm"])} cm`,
+      value: fmt(teamStats.mean["cmj_jump_height_m"], "m"),
+      sub:   `Range: ${fmt(teamStats.min["cmj_jump_height_m"], "m")}–${fmt(teamStats.max["cmj_jump_height_m"], "m")}`,
     },
     {
       icon: Award,

@@ -4,16 +4,13 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    color-scheme: dark;
-  }
+  :root { color-scheme: dark; }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     @apply bg-navy-950 text-slate-100 font-sans antialiased;
     min-height: 100dvh;
   }
-  /* Custom scrollbar */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { @apply bg-navy-900; }
   ::-webkit-scrollbar-thumb { @apply bg-navy-600 rounded-full; }
@@ -22,10 +19,18 @@
 
 @layer components {
   .card {
-    @apply bg-navy-800/60 border border-white/8 rounded-2xl backdrop-blur-sm;
+    background-color: rgb(30 27 75 / 0.6);
+    border: 1px solid rgb(255 255 255 / 0.08);
+    @apply rounded-2xl backdrop-blur-sm;
   }
   .card-hover {
-    @apply card transition-all duration-200 hover:border-white/16 hover:bg-navy-800/80;
+    background-color: rgb(30 27 75 / 0.6);
+    border: 1px solid rgb(255 255 255 / 0.08);
+    @apply rounded-2xl backdrop-blur-sm transition-all duration-200;
+  }
+  .card-hover:hover {
+    border-color: rgb(255 255 255 / 0.16);
+    background-color: rgb(30 27 75 / 0.8);
   }
   .pill {
     @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium;

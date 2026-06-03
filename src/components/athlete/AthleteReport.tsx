@@ -14,12 +14,11 @@ interface AthleteReportProps {
   teamStats: GroupStats;
 }
 
-// Position badge color map
+// Sport badge color map
 const POS_COLORS: Record<string, string> = {
-  Forward: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-  Midfielder: "bg-sky-500/20 text-sky-400 border-sky-500/30",
-  Defender: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-  Goalkeeper: "bg-violet-500/20 text-violet-400 border-violet-500/30",
+  Basketball: "bg-orange-500/20 text-orange-400 border-orange-500/30",
+  Volleyball:  "bg-sky-500/20 text-sky-400 border-sky-500/30",
+  Hockey:      "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
 };
 
 export function AthleteReport({ athlete, teamStats }: AthleteReportProps) {
@@ -50,9 +49,15 @@ export function AthleteReport({ athlete, teamStats }: AthleteReportProps) {
             <h2 className="text-xl font-bold text-white leading-tight">{athlete.athlete_name}</h2>
             <div className="flex flex-wrap items-center gap-2 mt-1.5">
               <span className={cn("pill border", posColor)}>{athlete.position}</span>
-              <span className="pill bg-white/5 border border-white/10 text-slate-400">
-                {athlete.session_date}
-              </span>
+              {athlete.sex && (
+                <span className="pill bg-white/5 border border-white/10 text-slate-400 capitalize">{athlete.sex}</span>
+              )}
+              {athlete.age && !isNaN(Number(athlete.age)) && (
+                <span className="pill bg-white/5 border border-white/10 text-slate-400">Age {Number(athlete.age).toFixed(1)}</span>
+              )}
+              {athlete.session_date && (
+                <span className="pill bg-white/5 border border-white/10 text-slate-400">Year {athlete.session_date}</span>
+              )}
             </div>
           </div>
           {/* Overall score ring */}

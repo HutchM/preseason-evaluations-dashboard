@@ -22,7 +22,7 @@ export default function Dashboard() {
   const {
     allProcessed, filteredAthletes, selectedAthlete,
     teamStats, positionStats, teamInsights,
-    positions, sessions, athleteNames, flaggedAthletes, topPerformers,
+    positions, sessions, sexes, athleteNames, flaggedAthletes, topPerformers,
     filters, updateFilter, loadData, resetToDemo, isDemo, error,
   } = useAthleteData();
 
@@ -47,6 +47,7 @@ export default function Dashboard() {
           activeSection={activeSection}
           positions={positions}
           sessions={sessions}
+          sexes={sexes}
           athleteNames={athleteNames}
           filters={filters}
           updateFilter={updateFilter}

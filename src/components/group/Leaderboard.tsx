@@ -14,8 +14,13 @@ export function Leaderboard({ athletes, onSelectAthlete }: LeaderboardProps) {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
   const columns = [
-    { key: "overallScore", label: "Score" },
-    ...METRIC_REGISTRY.slice(0, 6).map(m => ({ key: m.key, label: m.label })),
+    { key: "overallScore",            label: "Score" },
+    { key: "cmj_jump_height_m",       label: "CMJ Ht" },
+    { key: "cmj_takeoff_velocity_ms", label: "TOV" },
+    { key: "ddj_rsi_final",           label: "RSI" },
+    { key: "ddj_jump_height_m",       label: "DDJ Ht" },
+    { key: "ddj_gct_s",               label: "GCT" },
+    { key: "ddj_rsi_asymmetry",       label: "Asym%" },
   ];
 
   const sorted = [...athletes].sort((a, b) => {
@@ -30,8 +35,7 @@ export function Leaderboard({ athletes, onSelectAthlete }: LeaderboardProps) {
   };
 
   const posColors: Record<string, string> = {
-    Forward: "text-orange-400", Midfielder: "text-sky-400",
-    Defender: "text-emerald-400", Goalkeeper: "text-violet-400",
+    Basketball: "text-orange-400", Volleyball: "text-sky-400", Hockey: "text-emerald-400",
   };
 
   return (

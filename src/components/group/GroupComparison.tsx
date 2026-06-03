@@ -13,12 +13,11 @@ interface GroupComparisonProps {
 }
 
 const POS_COLORS: Record<string, string> = {
-  Forward: "#f97316", Midfielder: "#38bdf8",
-  Defender: "#34d399", Goalkeeper: "#a78bfa",
+  Basketball: "#f97316", Volleyball: "#38bdf8", Hockey: "#34d399",
 };
 
 export function GroupComparison({ positionStats, teamStats }: GroupComparisonProps) {
-  const [selectedMetric, setSelectedMetric] = useState("jump_height_cm");
+  const [selectedMetric, setSelectedMetric] = useState("cmj_jump_height_m");
   const meta = METRIC_REGISTRY.find(m => m.key === selectedMetric)!;
   const positions = Object.keys(positionStats);
 

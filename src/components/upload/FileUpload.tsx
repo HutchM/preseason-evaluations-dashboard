@@ -129,8 +129,11 @@ export function FileUpload({ onData, onClose, error }: FileUploadProps) {
             <FileText className="w-4 h-4 text-slate-400" />
             <span className="text-sm font-medium text-slate-300">Expected column headers</span>
           </div>
+          <p className="text-xs text-slate-500 leading-relaxed font-mono mb-1">
+            <strong className="text-slate-400">Long format (normative):</strong> athlete_id · demo_sex · demo_sport · demo_age_years · demo_year_of_study · cohort_is_injured · cohort_exclude_from_analysis · task · trial_id · trial_num · side · include_for_modeling_strict · manual_exclude · metric · label · unit · value
+          </p>
           <p className="text-xs text-slate-500 leading-relaxed font-mono">
-            athlete_name · position · session_date · jump_height_cm · peak_power_w_kg · peak_velocity_ms · acceleration_ms2 · deceleration_ms2 · asymmetry_index · rsi · peak_force_n_kg · contact_time_ms · hip_rom_deg
+            <strong className="text-slate-400">Wide format:</strong> athlete_name · position · session_date · sex · cmj_jump_height_m · cmj_takeoff_velocity_ms · ddj_rsi_final · ddj_rsi_asymmetry · …
           </p>
           <button
             onClick={downloadTemplate}

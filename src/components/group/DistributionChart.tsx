@@ -13,8 +13,7 @@ interface DistributionChartProps {
 }
 
 const POS_COLORS: Record<string, string> = {
-  Forward: "#f97316", Midfielder: "#38bdf8",
-  Defender: "#34d399", Goalkeeper: "#a78bfa",
+  Basketball: "#f97316", Volleyball: "#38bdf8", Hockey: "#34d399",
 };
 
 interface CustomDotProps {
@@ -34,8 +33,8 @@ const CustomDot = ({ cx = 0, cy = 0, payload, color = "#6366f1" }: CustomDotProp
 );
 
 export function DistributionChart({ athletes, teamMean }: DistributionChartProps) {
-  const [xMetric, setXMetric] = useState("jump_height_cm");
-  const [yMetric, setYMetric] = useState("peak_power_w_kg");
+  const [xMetric, setXMetric] = useState("cmj_jump_height_m");
+  const [yMetric, setYMetric] = useState("ddj_rsi_final");
 
   const xMeta = METRIC_REGISTRY.find(m => m.key === xMetric)!;
   const yMeta = METRIC_REGISTRY.find(m => m.key === yMetric)!;
